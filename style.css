@@ -1,0 +1,103 @@
+/* Global layout */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: rgb(65, 87, 27);
+}
+
+:root {
+  --myOliveGreen: rgb(65, 87, 27);
+  --myContainers: rgb(255, 255, 255);
+  --mySketchContainer: rgb(220, 220, 220);
+}
+
+/* Main container */
+#sketch-container {
+  position: relative;
+  z-index: 0;          /* establishes stacking context */
+  width: 300px;
+  height: 650px;
+  margin: 0 auto;
+  border: 2px solid black;
+  border-radius: 30px;
+  overflow: hidden;
+  background: var(--mySketchContainer);
+}
+
+/* Canvas sits above fader-container, below UI boxes */
+#sketch-container canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 650px;
+  background: transparent;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* Fader background box */
+#fader-container {
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  width: 50px;
+  height: 550px;
+  background: var(--myContainers);
+  border: 2px solid black;
+  border-radius: 12px;
+  z-index: 5;        /* below canvas */
+}
+
+/* Shared UI box styling */
+.ui-box {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: var(--myContainers);
+  border: 2px solid black;
+  border-radius: 12px;
+  color: white;
+  font-family: sans-serif;
+  font-size: 34px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 50;       /* above canvas */
+}
+
+/* Individual UI box positions */
+#value-display {
+  color: var(--myOliveGreen);
+  left: 170px;
+  top: 50px;
+}
+
+#lightConfirm-display {
+  left: 170px;
+ top: 280px;
+}
+
+#toggleButton-display {
+  left: 170px;
+  top: 520px;
+  font-size: 28px;
+  pointer-events: auto;   /* allow clicking */
+
+}
+
+/* Transparent overlay grid */
+#tempGrid-display {
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  width: 200px;
+  height: 550px;
+  background: transparent;
+  border: 0;
+  pointer-events: none;
+  z-index: 50;       /* above canvas */
+}

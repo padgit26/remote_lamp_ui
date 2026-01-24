@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Paddi's IoT Lamp</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,
+                   maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- noUiSlider (unused now but harmless) -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
+
+    <!-- p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  </head>
+
+  <body><br>
+    <div id="sketch-container">
+
+      <!-- Background fader slot -->
+      <div id="fader-container"></div>
+
+      <!-- UI boxes -->
+      <div id="value-display" class="ui-box"></div>
+      <div id="lightConfirm-display" class="ui-box"></div>
+      <div id="toggleButton-display" class="ui-box"></div>
+
+      <!-- Debug grid overlay -->
+      <div id="tempGrid-display"></div>
+
+    </div>
+
+    <script src="remoteLamp1.js"></script>
+  </body>
+</html>
