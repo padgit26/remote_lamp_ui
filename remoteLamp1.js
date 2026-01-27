@@ -15,9 +15,22 @@ let lightConfirm = 0;
 // -----------------------------------------
 // MQTT CLIENT SETUP (PLACE THIS HERE)
 // -----------------------------------------
+const client = mqtt.connect("wss://h2818280.ala.asia-southeast1.emqxsl.com:8084/mqtt", {
+  username: "paddiaddison2016@gmail.com",
+  password: "emqPad!91065",
+  clientId: "web-ui-" + Math.random().toString(16).substr(2, 8)
+});
+
+client.on("connect", () => {
+  console.log("MQTT connected");
+  client.subscribe("test/esp32/out");
+});
+
 
 client.on("message", (topic, payload) => {
   const text = payload.toString();
+  console.log("RAW MQTT:", text);
+
 
   // Ignore non‑JSON messages so the handler doesn't crash
   try {
