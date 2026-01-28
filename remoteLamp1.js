@@ -18,7 +18,7 @@ let lightConfirm = 0;
 // HEARTBEAT STATE
 // ------------------------------------------------------
 let lastHeartbeatTime = 0;   // updated ONLY when ESP32 sends heartbeat
-const HEARTBEAT_TIMEOUT = 20000; // ms
+const HEARTBEAT_TIMEOUT = 11000; // ms
 
 // ------------------------------------------------------
 // MQTT CLIENT SETUP
@@ -113,7 +113,7 @@ client.on("message", (topic, payload) => {
 
 // ------------------------------------------------------
 // HEARTBEAT TIMEOUT CHECK
-/* ------------------------------------------------------
+// ------------------------------------------------------
 setInterval(() => {
   const now = performance.now();
   if (now - lastHeartbeatTime > HEARTBEAT_TIMEOUT) {
@@ -121,7 +121,7 @@ setInterval(() => {
   }
 }, 1000);
 
-*/ 
+
 //------------------------------------------------------
 // P5 SETUP
 // ------------------------------------------------------
