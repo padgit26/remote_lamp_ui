@@ -51,7 +51,7 @@ html, body {
 }
 
 /* greenLed background */
-#greenLed-container {
+#heartbeat-led {
   position: absolute;
   left: 206px;
   top: 375px;
