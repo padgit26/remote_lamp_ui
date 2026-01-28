@@ -53,8 +53,8 @@ html, body {
 /* blueLed background */
 #blueLed-container {
   position: absolute;
-  left: 205px;
-  top: 200px;
+  left: 206px;
+  top: 201px;
   width: 10px;
   height: 10px;
   background: rgb(0, 0, 127);
