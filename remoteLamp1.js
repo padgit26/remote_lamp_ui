@@ -59,12 +59,12 @@ function flashHeartbeatLED() {
   const led = document.getElementById("heartbeat-led");
 
   // Turn it ON
-  led.style.background = "rgb(0, 200, 0)";
+  led.style.background = "rgb(63, 255, 63)";
 
   // Turn it OFF after 120ms
   setTimeout(() => {
     led.style.background = "rgb(80, 80, 80)";  // or whatever your "off" colour is
-  }, 120);
+  }, 150);
 }
 
 
