@@ -50,6 +50,19 @@ html, body {
   z-index: 5;        /* below canvas */
 }
 
+/* blueLed background */
+#blueLed-container {
+  position: absolute;
+  left: 205px;
+  top: 200px;
+  width: 10px;
+  height: 10px;
+  background: rgb(0, 0, 127);
+  border: 1px solid black;
+  border-radius: 6px;
+  z-index: 20;        /* above canvas */
+}
+
 /* Shared UI box styling */
 .ui-box {
   position: absolute;
