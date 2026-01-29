@@ -105,8 +105,8 @@ client.on("message", (topic, payload) => {
 
     // Update the UI colour box
     let confirmColor = lerpColor(
-        color(myGrey),
-        color(255, 255, 150),
+        color(50,50,50),
+        color(255, 255, 0),
         lightConfirm / 100
     );
     document.getElementById("lightConfirm-display").style.background = confirmColor.toString();
