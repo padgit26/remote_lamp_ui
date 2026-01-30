@@ -13,6 +13,8 @@ let myOliveGreen;
 let myGrey;
 let toggleState = false;
 let lightConfirm = 0;
+let uiActive = false;
+
 
 // ------------------------------------------------------
 // HEARTBEAT STATE
@@ -200,28 +202,64 @@ function draw() {
     let y = getPointerY();
     handleY = constrain(y, trackTop, trackBottom);
     faderValue = Math.round(map(handleY, trackBottom, trackTop, 0, 100));
+
+    publishDuringDrag();
+
   }
 }
 
 // ------------------------------------------------------
 // INPUT HANDLERS
 // ------------------------------------------------------
-function mousePressed() { startDrag(mouseX, mouseY); }
-function mouseReleased() {
-  dragging = false;
-  client.publish("test/esp32/in", JSON.stringify({ faderValue }));
+// ------------------------------------------------------
+// REAL-TIME UI ACTIVITY + INPUT HANDLERS
+// ------------------------------------------------------
+
+let lastSentFaderValue = null;
+
+// Tell ESP32 when UI becomes active/inactive
+function setUiActive(active) {
+  if (uiActive === active) return;
+  uiActive = active;
+  client.publish("test/esp32/ui_active", active ? "1" : "0");
 }
 
+// -------------------------
+// MOUSE
+// -------------------------
+function mousePressed() {
+  startDrag(mouseX, mouseY);
+  if (dragging) setUiActive(true);
+}
+
+function mouseReleased() {
+  if (dragging) {
+    dragging = false;
+    setUiActive(false);
+    client.publish("test/esp32/in", JSON.stringify({ faderValue }));
+  }
+}
+
+// -------------------------
+// TOUCH
+// -------------------------
 function touchStarted() {
   let t = touches[0];
   startDrag(t.x, t.y);
+  if (dragging) setUiActive(true);
 }
 
 function touchEnded() {
-  dragging = false;
-  client.publish("test/esp32/in", JSON.stringify({ faderValue }));
+  if (dragging) {
+    dragging = false;
+    setUiActive(false);
+    client.publish("test/esp32/in", JSON.stringify({ faderValue }));
+  }
 }
 
+// -------------------------
+// DRAGGING LOGIC
+// -------------------------
 function startDrag(x, y) {
   if (x > 30 && x < 125 && y > handleY - handleHeight / 2 && y < handleY + handleHeight / 2) {
     dragging = true;
@@ -232,6 +270,16 @@ function startDrag(x, y) {
   }
 }
 
-function getPointerY() {
-  return touches.length > 0 ? touches[0].y : mouseY;
+// -------------------------
+// REAL-TIME PUBLISHING DURING DRAG
+// (called every frame inside draw())
+// -------------------------
+function publishDuringDrag() {
+  if (!dragging) return;
+
+  // Only publish when value changes
+  if (faderValue !== lastSentFaderValue) {
+    client.publish("test/esp32/in", JSON.stringify({ faderValue }));
+    lastSentFaderValue = faderValue;
+  }
 }
