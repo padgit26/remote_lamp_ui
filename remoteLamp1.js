@@ -35,13 +35,13 @@ const client = mqtt.connect("wss://h2818280.ala.asia-southeast1.emqxsl.com:8084/
 function flashGreen() {
   const led = document.getElementById("heartbeat-led");
   led.className = "led-green";
-  setTimeout(() => led.className = "led-off", 200);
+  setTimeout(() => led.className = "led-off", 500);
 }
 
 function flashRed() {
   const led = document.getElementById("heartbeat-led");
   led.className = "led-red";
-  setTimeout(() => led.className = "led-off", 300);
+  setTimeout(() => led.className = "led-off", 500);
 }
 
 // ------------------------------------------------------
