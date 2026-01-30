@@ -14,6 +14,7 @@ let myGrey;
 let toggleState = false;
 let lightConfirm = 0;
 let uiActive = false;
+let esp32Online = true;
 
 // ⭐ Cool‑down timer to prevent rapid idle flashes after interaction
 let uiJustBecameInactiveAt = 0;
@@ -79,9 +80,15 @@ client.on("message", (topic, payload) => {
   // LWT STATUS
   // -------------------------
   if (topic === "test/esp32/status") {
-    if (text === "offline") flashRed();
+    if (text === "offline") {
+        esp32Online = false;
+        flashRed();
+    } else if (text === "online") {
+        esp32Online = true;
+    }
     return;
-  }
+}
+
 
   // -------------------------
   // MAIN ESP32 OUT TOPIC
@@ -119,8 +126,13 @@ if (
   data.mode === "idle" &&
   performance.now() - uiJustBecameInactiveAt > UI_IDLE_COOLDOWN_MS
 ) {
-  flashGreen();
+  if (esp32Online) {
+    flashGreen();
+  } else {
+    flashRed();
+  }
 }
+
 
 
 
