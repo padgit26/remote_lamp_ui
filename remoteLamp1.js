@@ -81,15 +81,13 @@ client.on("message", (topic, payload) => {
   // -------------------------
   // MAIN ESP32 OUT TOPIC
   // -------------------------
-
-// ⭐ Only flash LED during idle mode (no dragging, no button press)
-if (!uiActive) {
-  // Green flash = system alive
-flashGreen();
-}
-
 try {
   const data = JSON.parse(text);
+
+  // ⭐ Flash LED ONLY on idle JSON (mode: "idle") and only when UI is not active
+  if (!uiActive && data.mode === "idle") {
+    flashGreen();
+  }
 
   // -------------------------
   // lightConfirm phototransistor value received
@@ -109,10 +107,10 @@ try {
   // -------------------------
   // FADER UPDATE
   // -------------------------
-  if (data.faderValue !== undefined) {
-    faderValue = data.faderValue;
-    handleY = map(faderValue, 0, 100, trackBottom, trackTop);
-  }
+   // ⭐ After updating UI values, flash LED ONLY on idle JSON
+if (!uiActive && data.mode === "idle") {
+  flashGreen();
+}
 
 } catch (err) {
   console.log("Non‑JSON message:", text);
