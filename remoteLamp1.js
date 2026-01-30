@@ -34,14 +34,24 @@ const client = mqtt.connect("wss://h2818280.ala.asia-southeast1.emqxsl.com:8084/
 // ------------------------------------------------------
 function flashGreen() {
   const led = document.getElementById("heartbeat-led");
-  led.className = "led-green";
-  setTimeout(() => led.className = "led-off", 500);
+  led.classList.remove("led-off", "led-red", "led-green");
+led.classList.add("led-green");
+setTimeout(() => {
+  led.classList.remove("led-green", "led-red");
+  led.classList.add("led-off");
+}, 500);
+
 }
 
 function flashRed() {
   const led = document.getElementById("heartbeat-led");
-  led.className = "led-red";
-  setTimeout(() => led.className = "led-off", 500);
+  led.classList.remove("led-off", "led-red", "led-green");
+led.classList.add("led-red");
+setTimeout(() => {
+  led.classList.remove("led-green", "led-red");
+  led.classList.add("led-off");
+}, 500);
+
 }
 
 // ------------------------------------------------------

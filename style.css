@@ -50,18 +50,7 @@ html, body {
   z-index: 5;        /* below canvas */
 }
 
-/* greenLed background */
-#heartbeat-led {
-  position: absolute;
-  left: 206px;
-  top: 375px;
-  width: 10px;
-  height: 10px;
-  background: var(--myOliveGreen);
-  border: 1px solid black;
-  border-radius: 6px;
-  z-index: 20;        /* above canvas */
-}
+
 
 /* Shared UI box styling */
 .ui-box {
@@ -116,10 +105,17 @@ html, body {
 }
 
 #heartbeat-led {
-  width: 20px;
-  height: 20px;
+  position: absolute;
+  left: 205px;
+  top: 375px;
+  width: 12px;
+  height: 12px;
+  border: 1px solid black;
   border-radius: 50%;
+  z-index: 20;
+  /* No background here — LED color is controlled by classes */
 }
+
 
 .led-off {
   background: rgb(80, 80, 80) !important;
