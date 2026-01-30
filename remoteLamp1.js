@@ -94,13 +94,7 @@ client.on("message", (topic, payload) => {
     // -------------------------
     // HEARTBEAT RECEIVED
     // -------------------------
-    if (data.heartbeat !== undefined) {
-      lastHeartbeatTime = performance.now();
-      flashGreen();
-      
-    }
-
-
+    
     // lightConfirm phototransistor value received
     if (data.lightConfirm !== undefined) {
     lightConfirm = data.lightConfirm;
@@ -152,6 +146,10 @@ function setup() {
 
   c.elt.addEventListener("touchstart", e => e.preventDefault(), { passive: false });
   c.elt.addEventListener("touchmove", e => e.preventDefault(), { passive: false });
+  c.elt.style.touchAction = "none";
+c.elt.style.pointerEvents = "auto";
+
+
 
   handleY = map(faderValue, 0, 100, trackBottom, trackTop);
 
@@ -170,6 +168,9 @@ function setup() {
 
     client.publish("test/esp32/in", JSON.stringify({ toggleState }));
   });
+
+ 
+
 }
 
 // ------------------------------------------------------
@@ -202,10 +203,9 @@ function draw() {
     let y = getPointerY();
     handleY = constrain(y, trackTop, trackBottom);
     faderValue = Math.round(map(handleY, trackBottom, trackTop, 0, 100));
+}
 
-    publishDuringDrag();
-
-  }
+publishDuringDrag();   // always runs
 }
 
 // ------------------------------------------------------
@@ -282,4 +282,8 @@ function publishDuringDrag() {
     client.publish("test/esp32/in", JSON.stringify({ faderValue }));
     lastSentFaderValue = faderValue;
   }
+}
+
+function getPointerY() {
+  return touches.length > 0 ? touches[0].y : mouseY;
 }
