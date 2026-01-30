@@ -89,12 +89,7 @@ client.on("message", (topic, payload) => {
 try {
   const data = JSON.parse(text);
 
-  // ⭐ Flash LED ONLY on idle JSON (mode: "idle") and only when UI is not active
-  if (!uiActive && data.mode === "idle") {
-    flashGreen();
-  }
-
-  // -------------------------
+    // -------------------------
   // lightConfirm phototransistor value received
   // -------------------------
   if (data.lightConfirm !== undefined) {
