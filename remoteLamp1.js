@@ -88,44 +88,40 @@ client.on("message", (topic, payload) => {
   // -------------------------
   // MAIN ESP32 OUT TOPIC
   // -------------------------
-  try {
-    const data = JSON.parse(text);
 
-    // -------------------------
-    // HEARTBEAT RECEIVED
-    // -------------------------
-    
-// ANY valid state message counts as a heartbeat now
+// ⭐ ANY message on test/esp32/out counts as a heartbeat now
 lastHeartbeatTime = performance.now();
 flashGreen();
 
+try {
+  const data = JSON.parse(text);
 
-    // lightConfirm phototransistor value received
-    if (data.lightConfirm !== undefined) {
+  // -------------------------
+  // lightConfirm phototransistor value received
+  // -------------------------
+  if (data.lightConfirm !== undefined) {
     lightConfirm = data.lightConfirm;
 
-    // Update the UI colour box
     let confirmColor = lerpColor(
-        color(50,50,50),
-        color(255, 255, 0),
-        lightConfirm / 100
+      color(50, 50, 50),
+      color(255, 255, 0),
+      lightConfirm / 100
     );
-    document.getElementById("lightConfirm-display").style.background = confirmColor.toString();
-}
-
-
-
-    // -------------------------
-    // FADER UPDATE
-    // -------------------------
-    if (data.faderValue !== undefined) {
-      faderValue = data.faderValue;
-      handleY = map(faderValue, 0, 100, trackBottom, trackTop);
-    }
-
-  } catch (err) {
-    console.log("Non‑JSON message:", text);
+    document.getElementById("lightConfirm-display").style.background =
+      confirmColor.toString();
   }
+
+  // -------------------------
+  // FADER UPDATE
+  // -------------------------
+  if (data.faderValue !== undefined) {
+    faderValue = data.faderValue;
+    handleY = map(faderValue, 0, 100, trackBottom, trackTop);
+  }
+
+} catch (err) {
+  console.log("Non‑JSON message:", text);
+}
 });
 
 // ------------------------------------------------------
