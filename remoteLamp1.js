@@ -22,6 +22,11 @@ let offlineFlashInterval = null;
 let uiJustBecameInactiveAt = 0;
 const UI_IDLE_COOLDOWN_MS = 300;
 
+// Cool-down for releasing the fader
+let faderReleaseAt = 0;
+const FADER_RELEASE_COOLDOWN_MS = 150;
+
+
 // ------------------------------------------------------
 // MQTT CLIENT SETUP
 // ------------------------------------------------------
@@ -146,12 +151,16 @@ client.on("message", (topic, payload) => {
         confirmColor.toString();
     }
 
-    // -------------------------
-// FADER UPDATE (ignore while dragging)
+   // -------------------------
+// FADER UPDATE (ignore while dragging or just after release)
 // -------------------------
 if (data.faderValue !== undefined) {
-  if (!uiActive && !dragging) {
-    // Only accept remote updates when the user is NOT dragging
+  const now = performance.now();
+
+  if (!uiActive &&
+      !dragging &&
+      now - faderReleaseAt > FADER_RELEASE_COOLDOWN_MS) {
+
     faderValue = data.faderValue;
     handleY = map(faderValue, 0, 100, trackBottom, trackTop);
   }
