@@ -221,8 +221,10 @@ function setup() {
   // TOGGLE BUTTON
   // -------------------------------
   const toggleBox = document.getElementById("toggleButton-display");
-  toggleBox.style.background = myGrey;
-  toggleBox.textContent = "OFF";
+
+  // Do nothing here — let MQTT set the real state
+  //toggleBox.style.background = myGrey;
+  //toggleBox.textContent = "OFF";
 
   toggleBox.addEventListener("click", () => {
     toggleState = !toggleState;
