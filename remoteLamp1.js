@@ -24,7 +24,7 @@ const UI_IDLE_COOLDOWN_MS = 300;
 
 // Cool-down for releasing the fader
 let faderReleaseAt = 0;
-const FADER_RELEASE_COOLDOWN_MS = 500;
+const FADER_RELEASE_COOLDOWN_MS = 200;
 
 
 // ------------------------------------------------------
