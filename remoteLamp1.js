@@ -28,7 +28,8 @@ const UI_IDLE_COOLDOWN_MS = 300;
 const client = mqtt.connect("wss://h2818280.ala.asia-southeast1.emqxsl.com:8084/mqtt", {
   username: "paddiaddison2016@gmail.com",
   password: "emqPad!91065",
-  clientId: "web-ui-" + Math.random().toString(16).substr(2, 8)
+  clientId: "web-ui-" + Math.random().toString(16).substr(2, 8),
+  keepalive: 10
 });
 
 // ------------------------------------------------------
