@@ -99,7 +99,7 @@ html, body {
 }
 
 /* Transparent overlay grid */
-#tempGrid-display {
+/*#tempGrid-display {
   position: absolute;
   left: 50px;
   top: 50px;
@@ -108,8 +108,8 @@ html, body {
   background: transparent;
   border: 0;
   pointer-events: none;
-  z-index: 50; /* above canvas */
-}
+  z-index: 50;
+}*/
 
 /* HEARTBEAT LED — now fully isolated and always visible */
 #heartbeat-led {
