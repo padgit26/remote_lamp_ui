@@ -258,7 +258,7 @@ function draw() {
   valueBox.textContent = faderValue;
   valueBox.style.color = valueColor.toString();
 
-  let confirmColor = lerpColor(color(myGrey), color(255, 255, 150), lightConfirm / 100);
+  let confirmColor = lerpColor(color(80,80,80), color(255, 255, 150), lightConfirm / 100);
   document.getElementById("lightConfirm-display").style.background = confirmColor.toString();
 
   if (dragging) {

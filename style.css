@@ -116,7 +116,7 @@ html, body {
 
 /* LED states */
 .led-off {
-  background: rgb(180,180,180) !important;
+  background: rgb(80,80,80) !important;
 }
 
 .led-green {
